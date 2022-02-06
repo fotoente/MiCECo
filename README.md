@@ -27,6 +27,7 @@ The script will now be run every day on 9:00am server time.
 
 ### Other notes
 The script is written in a way that always the notes and reactions from yesterday(!!!) are caught and counted. There is no option at the moment so you can change the period.
+
 The exact timestamp to get yesterday is determined by the timezone of your server. At the moment there is no way to change the timezone.
 
 #### Feel free to open a feature request or issue if you want something changed!
