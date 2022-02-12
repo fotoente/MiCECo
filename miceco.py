@@ -119,7 +119,10 @@ for element in noteList:
                 emojiList.append(dict) #TODO: Append a dictionary to acces it way easier
     
     for emoji in emojiList:
-        emoji["count"] += element["text"].count(emoji["emoji"])
+        emoji["count"] += element["text"].count(emoji["emoji"]) #Count those Emojis, that are in this note
+        
+        if (element["cw"] is not None):
+            emoji["count"] += element["cw"].count(emoji["emoji"]) #Count those Emojis, that are in this note
 
 doubleList = []
 emojiList = sorted(emojiList, reverse = True , key = lambda d: d["count"]) #Sort it by the most used Emojis!
