@@ -235,8 +235,8 @@ else:
 
 text += reactText
 
-print(text)
-"""
+# print(text)
+
 try:
     req = requests.post(url + "/notes/create", json={
         "i": token,
@@ -247,4 +247,3 @@ try:
 except requests.exceptions.HTTPError as err:
     print("Couldn't create Posts! " + str(err))
     sys.exit(1)
-"""
