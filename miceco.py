@@ -3,7 +3,7 @@ import os
 import re
 import sys
 from datetime import *
-import dateutil.relativedelta
+# import dateutil.relativedelta
 
 import requests
 import emoji as emojilib

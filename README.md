@@ -10,6 +10,14 @@ This little script counts custom emojis and used reactions from the previous day
 Clone the repository into a folder of your choice with `git clone https://github.com/fotoente/MiCECo.git`
 Edit the file `example-miceco.cfg` (see table below) and save it as `miceco.cfg`
 
+Install following Python packages via `pip install`
+```
+emoji
+python-dateutil
+```
+
+or use `pip install -r requirements.txt` in the cloned folder
+
 You are now ready to run the script with any Python3 version.
 
 I recommend using a cronjob to let it run on a daily basis.
