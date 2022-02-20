@@ -240,7 +240,7 @@ text += reactText
 try:
     req = requests.post(url + "/notes/create", json={
         "i": token,
-        "visibility": "specified",
+        "visibility": "public",
         "text": text
     })
     req.raise_for_status()
