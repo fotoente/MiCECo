@@ -98,8 +98,11 @@ while True:
 
     formerTimestamp = lastTimestamp
 
-    lastTime = noteList[len(noteList) - 1]["createdAt"]
-    lastTimestamp = int(datetime.timestamp(datetime.strptime(lastTime, '%Y-%m-%dT%H:%M:%S.%f%z')) * 1000)
+    if not len(noteList) <= 1:  # If there is one or less notes, then break the while loop
+        lastTime = noteList[len(noteList) - 1]["createdAt"]
+        lastTimestamp = int(datetime.timestamp(datetime.strptime(lastTime, '%Y-%m-%dT%H:%M:%S.%f%z')) * 1000)
+    else:
+        break
 
 for element in noteList:
     if element["text"] is None:  # Skip Notes without text
@@ -116,7 +119,8 @@ for element in noteList:
 
     if emojis is not None:
         for emoji in emojis:
-            if emoji["name"].find("@") == -1:  # Only emojis from the own instance, because reactions will be in "emojis"
+            if emoji["name"].find(
+                    "@") == -1:  # Only emojis from the own instance, because reactions will be in "emojis"
                 # too
                 if not emoji["name"] in doubleList:
                     doubleList.append(emoji["name"])  # Easy way to prevent a double emoji in the list.
@@ -132,7 +136,7 @@ for element in noteList:
             if element["cw"] is not None:
                 emojiList[index]["count"] += element["cw"].count(emojiList[index]["emoji"])  # Count those Emojis, that
                 # are in this note CW text
-    
+
     # Process UTF8 Emojis
     if element["cw"] is not None:
         UTF8text = element["text"] + " " + element["cw"]
@@ -181,9 +185,11 @@ if getReactions:
             reactionList.append(jsonObj)
 
         formerTimestamp = lastTimestamp
-
-        lastTime = reactionList[len(reactionList) - 1]["createdAt"]
-        lastTimestamp = int(datetime.timestamp(datetime.strptime(lastTime, '%Y-%m-%dT%H:%M:%S.%f%z')) * 1000)
+        if not len(reactionList) <=1:
+            lastTime = reactionList[len(reactionList) - 1]["createdAt"]
+            lastTimestamp = int(datetime.timestamp(datetime.strptime(lastTime, '%Y-%m-%dT%H:%M:%S.%f%z')) * 1000)
+        else:
+            break
 
     react = ""
     index = None
