@@ -1,2 +1,3 @@
-emoji
-python-dateutil
+emoji==1.6.3
+configparser~=5.2.0
+requests~=2.27.1

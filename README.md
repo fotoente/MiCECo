@@ -13,7 +13,8 @@ Edit the file `example-miceco.cfg` (see table below) and save it as `miceco.cfg`
 Install following Python packages via `pip install`
 ```
 emoji
-python-dateutil
+configparser
+requests
 ```
 
 or use `pip install -r requirements.txt` in the cloned folder
@@ -25,17 +26,27 @@ In your console type `crontab -e`
 Add `0 9 * * * python3 /path/to/file/miceco.py > /path/to/file/miceco_output.txt`
 The script will now be run every day on 9:00am server time.
 
+### Available flags
+There are two flags that can be used to specify which external files the script gonna use
+
+| Flag | Long name   | controlled behaviour                                                                     |
+|------|-------------|------------------------------------------------------------------------------------------|
+| `-c` | `--config`  | What configuration file should be used.<br/>Without this flag `miceco.cfg` will be used. |
+ | `-i` | `--ignored` | Which emojis should be ignored.<br/> Without this `ignoredemojis.txt` will be used       |
+
 ### Options for the config file
-|Name|Values|Explanation|
-|----|----|----|
-|instance|domain.tld|The domain name for your Misskey instance that you want to read the notes from. Only supply the domain name and TLD, no `/`,`:` or `https`
-|user|`username`|The user you want to read the notes from|
-|token|`String`|The token for your bot. Needs permission to write notes|
-|getReaction|`Boolean`|Should reactions emojis be counted as well? `True` or `False`|
+| Name           | Values     | Explanation                                                                                                                                                       |
+|----------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| instance       | domain.tld | The domain name for your Misskey instance that you want to read the notes from. Only supply the domain name and TLD, no `/`,`:` or `https`                        |
+| user           | `username` | The user you want to read the notes from                                                                                                                          |
+| token          | `String`   | The token for your bot. Needs permission to write notes                                                                                                           |
+| getReaction    | `Boolean`  | Should reactions emojis be counted as well? `True` or `False`                                                                                                     |
+| ignoreEmojis   | `Boolean`  | Should Emojis that are specified in `ignoredemojis.txt` be ignored? `True`or `False`                                                                              |                                                        |
+| noteVisibility | `String`   | How should the note be shown in the Timeline? `public`: Visible for everyone<br/>`folowers`: only visible for your followers<br/>`specified`: Only you can see it |
 
 ### Other notes
 The script is written in a way that only the notes and reactions from yesterday(!!!) are caught and counted. There is no option currently to specify the date range for collection.
 
 The exact timestamp to get yesterday is determined by the timezone of your server. At the moment there is no way to change the timezone.
 
-#### Feel free to open a feature request or issue if you want something changed!
+If the note is longer than the maximum note length of the instance, then only the five most used emojis (and five most used reactions) will be shown.
