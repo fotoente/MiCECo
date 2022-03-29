@@ -150,10 +150,10 @@ while True:
     else:
         break
 
-if len(noeList) == =:
+if len(noteList) == 0:
     print("Nothing to count, exiting script.")
     sys.exit(1)
-    
+
 if len(noteList) == 1:
     if noteList[0]["text"].find(chr(8203) + chr(8203) + chr(8203)) > 0:
         print("Only note is MiCECo note.")
@@ -295,6 +295,9 @@ else:
 for count in emojiList:
     emojisTotal += count["count"]
 
+initial_text = ""
+initial_react_text = ""
+
 if emojisTotal > 0:
     initial_text = nickname + " has written " + str(len(noteList)) + " Notes yesterday, " + formerDate.strftime(
         '%a %d-%m-%Y') + "\nand used a total of " + str(emojisTotal) + " Emojis. #miceco" + chr(8203) + chr(8203) + chr(
@@ -317,7 +320,7 @@ text = emojilib.emojize(text)
 
 if max_note_length < len(text):
     emoji_text = initial_text
-    for item in range(0,5):
+    for item in range(0, 5):
         count = emojiList[item]["count"]
         emoji = emojiList[item]["emoji"]
         emoji_text += f"{count}x {emoji} " + chr(9553) + " "
@@ -325,7 +328,7 @@ if max_note_length < len(text):
 
     if getReactions:
         reactText = initial_react_text
-        for item in range(0,5):
+        for item in range(0, 5):
             count = reactList[item]["count"]
             reaction = reactList[item]["reaction"]
             reactText += f"{count}x {reaction} " + chr(9553) + " "
