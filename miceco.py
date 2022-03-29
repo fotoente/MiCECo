@@ -150,6 +150,16 @@ while True:
     else:
         break
 
+if len(noeList) == =:
+    print("Nothing to count, exiting script.")
+    sys.exit(1)
+    
+if len(noteList) == 1:
+    if noteList[0]["text"].find(chr(8203) + chr(8203) + chr(8203)) > 0:
+        print("Only note is MiCECo note.")
+        print("Nothing to count, exiting script")
+        sys.exit(1)
+
 for element in noteList:
     if element["text"] is None:  # Skip Notes without text
         print("Skip Note " + element["id"] + " without Text\nTime noted: " + element["createdAt"])
