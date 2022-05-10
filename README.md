@@ -4,6 +4,8 @@
 ### Introduction
 This little script counts custom emojis and used reactions from the previous day and automaticaly creates a note on your Misskey account with an overview. There is also an option to include reaction emojis in the counts too.
 
+All notes will be send with a content warning note, because some clients can't handle a big number of emojis!
+
 *Example Note (with counting of Reactions activated)*: https://ente.fun/notes/8wexz5ov1q
 
 ### Installation

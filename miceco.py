@@ -27,6 +27,8 @@ doubleList = []
 text = ""
 getReactions = False
 
+cwtext = "#miceco"
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", help="location of the configuration file")
 parser.add_argument("-i", "--ignored", help="location of the file which emojis are ignored while counting")
@@ -300,7 +302,7 @@ initial_react_text = ""
 
 if emojisTotal > 0:
     initial_text = nickname + " has written " + str(len(noteList)) + " Notes yesterday, " + formerDate.strftime(
-        '%a %d-%m-%Y') + "\nand used a total of " + str(emojisTotal) + " Emojis. #miceco" + chr(8203) + chr(8203) + chr(
+        '%a %d-%m-%Y') + "\nand used a total of " + str(emojisTotal) + " Emojis." + chr(8203) + chr(8203) + chr(
         8203) + "\n\n" + chr(9553) + " "
     text = initial_text
     emoji_text = ""
@@ -312,11 +314,13 @@ if emojisTotal > 0:
 
 else:
     emoji_text = nickname + " has written " + str(len(noteList)) + " Notes yesterday, " + formerDate.strftime(
-        '%a %d-%m-%Y') + "\nand didn't used any emojis. #miceco" + chr(8203) + chr(8203) + chr(8203)
+        '%a %d-%m-%Y') + "\nand didn't used any emojis." + chr(8203) + chr(8203) + chr(8203)
 
 text += emoji_text + reactText
 text = emojilib.emojize(text)
 # print(text)
+
+max_note_length = max_note_length-len(cwtext)
 
 if max_note_length < len(text):
     emoji_text = initial_text
@@ -338,12 +342,14 @@ if max_note_length < len(text):
     text = emojilib.emojize(text)
 
 # print(text)
+noteVisibility = "specified"
 
 try:
     req = requests.post(url + "/notes/create", json={
         "i": token,
         "visibility": noteVisibility,
-        "text": text
+        "text": text,
+        "cw": cwtext
     })
     req.raise_for_status()
 except requests.exceptions.HTTPError as err:
