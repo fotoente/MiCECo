@@ -342,7 +342,7 @@ if max_note_length < len(text):
     text = emojilib.emojize(text)
 
 # print(text)
-noteVisibility = "specified"
+# noteVisibility = "specified"
 
 try:
     req = requests.post(url + "/notes/create", json={
