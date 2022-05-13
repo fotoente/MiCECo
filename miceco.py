@@ -1,12 +1,10 @@
 import configparser
 import os
-import re
 import sys
 import argparse
 from datetime import *
 import requests
 import emoji as emojilib
-# TODO: Replace with emojis library!
 
 
 def check_str_to_bool(input_text) -> bool:
@@ -200,7 +198,7 @@ for element in noteList:
         UTF8text = element["text"] + " " + element["cw"]
     else:
         UTF8text = element["text"]
-    UTF8ListRaw = re.findall(emojilib.get_emoji_regexp(), UTF8text)  # Find all UTF8 Emojis in Text and CW text
+    UTF8ListRaw = emojilib.distinct_emoji_list(UTF8text)  # Find all UTF8 Emojis in Text and CW text
     UTF8text = emojilib.demojize(UTF8text)
     # TODO urgent! replace "get_emoji_regexp"
     if len(UTF8ListRaw) > 0:
