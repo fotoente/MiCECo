@@ -1,2 +1,3 @@
 *.cfg
 !example-miceco.cfg
+venv/
