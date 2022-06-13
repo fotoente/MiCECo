@@ -52,12 +52,12 @@ user = config.get("misskey", "user")
 
 try:
     getReactions = check_str_to_bool(config.get("misskey", "getReaction"))
-except (TypeError, ValueError) as err:
+except (TypeError, ValueError, configparser.NoOptionError) as err:
     getReactions = False
 
 try:
     ignoreEmojis = check_str_to_bool(config.get("misskey", "ignoreEmojis"))
-except (TypeError, ValueError) as err:
+except (TypeError, ValueError, configparser.NoOptionError) as err:
     ignoreEmojis = False
 
 if ignoreEmojis:
@@ -77,9 +77,12 @@ if ignoreEmojis:
                 i = element.strip()
                 ignored_emojis.append(emojilib.demojize(i))
 
-noteVisibility = config.get("misskey", "noteVisibility")  # How should the note be printed?
-if noteVisibility != "public" and noteVisibility != "home" and noteVisibility != "followers" and noteVisibility != \
-        "specified":
+try:
+    noteVisibility = config.get("misskey", "noteVisibility")  # How should the note be printed?
+    if noteVisibility != "public" and noteVisibility != "home" and noteVisibility != "followers" and noteVisibility != \
+            "specified":
+        noteVisibility = "followers"
+except configparser.NoOptionError as err:
     noteVisibility = "followers"
 
 try:
@@ -200,7 +203,6 @@ for element in noteList:
         UTF8text = element["text"]
     UTF8ListRaw = emojilib.distinct_emoji_list(UTF8text)  # Find all UTF8 Emojis in Text and CW text
     UTF8text = emojilib.demojize(UTF8text)
-    # TODO urgent! replace "get_emoji_regexp"
     if len(UTF8ListRaw) > 0:
         UTF8List = list(set(UTF8ListRaw))
         for emoji in UTF8List:
