@@ -196,11 +196,20 @@ for element in noteList:
                 emojiList[index]["count"] += element["cw"].count(emojiList[index]["emoji"])  # Count those Emojis, that
                 # are in this note CW text
 
+            if "poll" in element:
+                for pollchoice in element["poll"]["choices"]:
+                    emojiList[index]["count"] += pollchoice["text"].count(emojiList[index]["emoji"])  # CCount custom emojis that are used in poll texts
+
     # Process UTF8 Emojis
     if element["cw"] is not None:
         UTF8text = element["text"] + " " + element["cw"]
     else:
         UTF8text = element["text"]
+
+    if "poll" in element:
+        for pollchoice in element["poll"]["choices"]:
+            UTF8text += " " + pollchoice["text"]
+
     UTF8ListRaw = emojilib.distinct_emoji_list(UTF8text)  # Find all UTF8 Emojis in Text and CW text
     UTF8text = emojilib.demojize(UTF8text)
     if len(UTF8ListRaw) > 0:
